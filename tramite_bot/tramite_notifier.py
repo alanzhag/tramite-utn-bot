@@ -6,14 +6,14 @@ Created on Wed Mar  6 23:50:09 2019
 @author: alanzhao
 """
 
-import os
+from os import environ
 import telepot
 import textwrap
 
 class TelegramNotifier:
     def __init__(self):
-        self.telegram_bot = telepot.Bot(os.environ["BOT_TOKEN"])
-        self.user_chat_id = os.environ["CHAT_ID"]
+        self.telegram_bot = telepot.Bot(environ["BOT_TOKEN"])
+        self.user_chat_id = environ["CHAT_ID"]
     
     def notify_tramite_movement(self, movement):
         message = """

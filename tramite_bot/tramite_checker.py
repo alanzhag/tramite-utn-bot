@@ -6,10 +6,10 @@ Created on Wed Mar  6 17:36:11 2019
 @author: alanzhao
 """
 
-import os
 import requests
 import json
 import tramite_notifier as tn
+from os import environ
 from operator import attrgetter
 from lxml import html
 
@@ -103,7 +103,7 @@ class TramiteChecker:
         return self.persistence[self.LAST_MOVEMENT_ID]
 
 if __name__ == "__main__":
-    xt_code = os.environ["XT_CODE"]
-    xt_key = os.environ["XT_KEY"]
+    xt_code = environ["XT_CODE"]
+    xt_key = environ["XT_KEY"]
     tramite_checker = TramiteChecker(xt_code, xt_key)
     tramite_checker.check_for_new_movements()
