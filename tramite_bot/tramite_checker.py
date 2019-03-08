@@ -70,12 +70,11 @@ class TramiteChecker:
     def check_for_new_movements(self):
         movements = self.get_movements()
         if self.has_new_movement(movements):
-            print("New movement detected!")
             last_movement = self.get_last_movement(movements)
             self.notify_user_of_new_movement(last_movement)
             self.update_last_known_movement_id(last_movement.external_id)
         else:
-            print("No updates")
+            self.notifier.notify("No updates")
             
     def update_last_known_movement_id(self, new_id):
         self.persistence[self.LAST_MOVEMENT_ID] = new_id

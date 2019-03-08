@@ -14,7 +14,11 @@ class TelegramNotifier:
     def __init__(self):
         self.telegram_bot = telepot.Bot(environ["BOT_TOKEN"])
         self.user_chat_id = environ["CHAT_ID"]
-    
+
+    def notify(self, message):
+	self.telegram_bot.sendMessage(chat_id = self.user_chat_id,
+				      text = message)
+
     def notify_tramite_movement(self, movement):
         message = """
         ¡Nuevo movimiento del trámite!
@@ -22,5 +26,4 @@ class TelegramNotifier:
         Fecha: {}
         Comentario: {}
         """.format(movement.external_id, movement.datetime, movement.comment)
-        self.telegram_bot.sendMessage(chat_id = self.user_chat_id,
-                                      text = textwrap.dedent(message))
+        self.notify(textwrap.dedent(message))
