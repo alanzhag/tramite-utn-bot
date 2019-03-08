@@ -40,7 +40,7 @@ class TramiteChecker:
     def __init__(self, xt_code, xt_key):
         self.xt_code = str(xt_code)
         self.xt_key = str(xt_key)
-        self.persistence_file_name = "persistence.json"
+        self.persistence_file_path = self.buid_current_path("persistence.json")
         self.session = requests.Session()
         self.persistence = self.load_persistence()
         self.notifier = tn.TelegramNotifier()
@@ -91,18 +91,18 @@ class TramiteChecker:
         return any(movement.external_id > last_known_movement_id 
                                for movement in movements)
     def load_persistence(self):
-        with open(self.get_persistence_file_path(),"r") as persistence:
+        with open(self.persistence_file_path,"r") as persistence:
             return json.load(persistence)
         
     def save_persistence(self):
-        with open(self.get_persistence_file_path(), "w") as persistence:
+        with open(self.persistence_file_path, "w") as persistence:
             json.dump(self.persistence, persistence)
         
     def last_known_movement_id(self):
         return self.persistence[self.LAST_MOVEMENT_ID]
     
-    def get_persistence_file_path(self):
-        return path.join(path.dirname(__file__), self.persistence_file_name)
+    def buid_current_path(self, filename):
+        return path.join(path.dirname(__file__), filename)
 
 if __name__ == "__main__":
     xt_code = environ["XT_CODE"]
