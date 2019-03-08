@@ -1,1 +1,1 @@
-worker: python tramite_checker.py
+worker: python tramite_bot/tramite_checker.py
