@@ -14,10 +14,12 @@ class TelegramNotifier:
     def __init__(self):
         self.telegram_bot = telepot.Bot(environ["BOT_TOKEN"])
         self.user_chat_id = environ["CHAT_ID"]
+        self.mute_available = environ["MUTE"].upper() == "TRUE"
 
-    def notify(self, message):
-        self.telegram_bot.sendMessage(chat_id = self.user_chat_id, 
-                                      text = message)
+    def notify(self, message, muteable = False):
+        if not muteable or not self.mute_available:
+            self.telegram_bot.sendMessage(chat_id = self.user_chat_id,
+                                          text = message)
 
     def notify_tramite_movement(self, movement):
         message = """

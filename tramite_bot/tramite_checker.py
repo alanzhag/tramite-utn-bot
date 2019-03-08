@@ -9,7 +9,7 @@ Created on Wed Mar  6 17:36:11 2019
 import requests
 import json
 import tramite_notifier as tn
-from os import environ
+from os import environ, path
 from operator import attrgetter
 from lxml import html
 
@@ -74,7 +74,7 @@ class TramiteChecker:
             self.notify_user_of_new_movement(last_movement)
             self.update_last_known_movement_id(last_movement.external_id)
         else:
-            self.notifier.notify("No updates")
+            self.notifier.notify("No updates", muteable = True)
             
     def update_last_known_movement_id(self, new_id):
         self.persistence[self.LAST_MOVEMENT_ID] = new_id
@@ -91,15 +91,18 @@ class TramiteChecker:
         return any(movement.external_id > last_known_movement_id 
                                for movement in movements)
     def load_persistence(self):
-        with open(self.persistence_file_name,"r") as persistence:
+        with open(self.get_persistence_file_path(),"r") as persistence:
             return json.load(persistence)
         
     def save_persistence(self):
-        with open(self.persistence_file_name, "w") as persistence:
+        with open(self.get_persistence_file_path(), "w") as persistence:
             json.dump(self.persistence, persistence)
         
     def last_known_movement_id(self):
         return self.persistence[self.LAST_MOVEMENT_ID]
+    
+    def get_persistence_file_path(self):
+        return path.join(path.dirname(__file__), self.persistence_file_name)
 
 if __name__ == "__main__":
     xt_code = environ["XT_CODE"]
