@@ -14,7 +14,7 @@ from operator import attrgetter
 from lxml import html
 
 def sublist_in_even_chunks(list_to_sublist, chunk_lenght):
-    return [list_to_sublist[i:i + chunk_lenght] for i in xrange(0, len(list_to_sublist), chunk_lenght)]
+    return [list_to_sublist[i:i + chunk_lenght] for i in range(0, len(list_to_sublist), chunk_lenght)]
 
 def transform_movement(movement):
     return TramiteMovement(external_id = int(movement[0].replace("# ", "")), 
