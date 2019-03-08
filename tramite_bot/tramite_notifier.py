@@ -16,8 +16,7 @@ class TelegramNotifier:
         self.user_chat_id = environ["CHAT_ID"]
 
     def notify(self, message):
-	self.telegram_bot.sendMessage(chat_id = self.user_chat_id,
-				      text = message)
+	self.telegram_bot.sendMessage(chat_id = self.user_chat_id, text = message)
 
     def notify_tramite_movement(self, movement):
         message = """
