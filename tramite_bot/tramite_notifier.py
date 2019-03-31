@@ -22,8 +22,6 @@ class TelegramNotifier:
                                           text = message)
 
     def notify_tramite_movement(self, movement):
-        print(movement.comment)
-        print(movement.comment.decode("utf-8"))
         message = """
         ¡Nuevo movimiento del trámite!
         Id: {}
