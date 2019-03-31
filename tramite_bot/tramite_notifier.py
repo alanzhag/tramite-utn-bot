@@ -27,5 +27,5 @@ class TelegramNotifier:
         Id: {}
         Fecha: {}
         Comentario: {}
-        """.format(movement.external_id, movement.datetime, movement.comment)
+        """.format(movement.external_id, movement.raw_datetime, movement.comment)
         self.notify(textwrap.dedent(message))
