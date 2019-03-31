@@ -28,4 +28,4 @@ class TelegramNotifier:
         Fecha: {}
         Comentario: {}
         """.format(movement.external_id, movement.raw_datetime, movement.comment)
-        self.notify(textwrap.dedent(message).decode("utf-8"))
+        self.notify(textwrap.dedent(message.decode("utf-8")))
